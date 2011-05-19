@@ -71,9 +71,9 @@ class NiFTPTest < Test::Unit::TestCase
     end
 
     should "use the :retries option instead of the default" do
-      Net::FTP.expects(:new).times(5).returns(@ftp)
+      Net::FTP.expects(:new).times(2).returns(@ftp)
       assert_raise(RuntimeError) do
-        @object.ftp(@host, {:retries => 5 }) do |ftp_client|
+        @object.ftp(@host, {:retries => 2 }) do |ftp_client|
           raise "testing retryable gem"
         end
       end
