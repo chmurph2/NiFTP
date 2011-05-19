@@ -8,9 +8,9 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Christopher R. Murphy"]
   s.email       = ["chmurph2+git@gmail.com"]
-  s.homepage    = "http://www.blogobaggins.net"
   s.summary     = %q{NiFTP abstracts away the ceremony from Ruby's Net::FTP class.}
   s.description = %q{Please see this project's README.}
+  s.homepage    = "https://github.com/chmurph2/NiFTP"
 
   s.rubyforge_project = "niftp"
 
