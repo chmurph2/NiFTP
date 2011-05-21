@@ -4,20 +4,30 @@ connections. Options include retrying your commands on flakey FTP servers, and
 forced timeouts. FTP Secure (FTPS) is also supported.
 
 ## Usage
+    # Without NiFTP:
+    begin
+      client = Net::FTP.new("localhost")
+      client.list
+    ensure
+      client.try(:close)
+    end
+
+    # With NiFTP:
+    ftp("localhost") { |client| client.list }
+
+    # A more concrete example:
 
     # Mixin the +NiFTP+ module, which provides the +ftp+ method.
     class SomeObject
       include NiFTP
 
       def ftp_stuff
-        # put a file using no username, password or other options
-        ftp("localhost") { |client| client.put("some_file.txt") }
-
-        # get a file on an FTP Secure (FTPS) server
+        # get a file from an FTP Secure (FTPS) server
         ftp("ftp.secure.com", { username: "some_user", password: "FTP_FTL",
-                                 ftps: true }) do |client|
-          client.resume = true
-          file = client.get("some_file.txt")
+                                ftps: true }) do |client|
+          files = client.list('n*')
+          # ...
+          file = client.getbinaryfile('nif.rb-0.91.gz', 'nif.gz', 1024)
           # ...
         end
       end
