@@ -14,8 +14,8 @@ class NiFTPTest < Test::Unit::TestCase
       assert_equal Niftp, NiFTP
     end
 
-    should "raise a runtime errors if the :retries option is less than 1" do
-      assert_raise(RuntimeError) { @object.ftp(@host, { :retries => 0 }) }
+    should "raise a runtime errors if the :tries option is less than 1" do
+      assert_raise(RuntimeError) { @object.ftp(@host, { :tries => 0 }) }
     end
 
     should "connect to the FTP server with the default port" do
@@ -63,25 +63,24 @@ class NiFTPTest < Test::Unit::TestCase
       @object.ftp(@host)
     end
 
-    should "retry once (by default) when an exception is raised" do
-      Net::FTP.expects(:new).once.returns(@ftp)
-      assert_raise(RuntimeError) do
-        @object.ftp(@host) { |ftp_client| raise "testing retryable gem"}
-      end
+    should "use the retryable defauls when they're not explicitly set" do
+      Net::FTP.stubs(:new => @ftp)
+      @object.expects(:retryable).with(:tries => 2, :sleep => 1)
+      @object.ftp(@host) { }
     end
 
-    should "use the :retries option instead of the default" do
-      Net::FTP.expects(:new).times(2).returns(@ftp)
+    should "use the :tries option instead of the default" do
+      Net::FTP.expects(:new).times(3).returns(@ftp)
       assert_raise(RuntimeError) do
-        @object.ftp(@host, {:retries => 2 }) do |ftp_client|
+        @object.ftp(@host, {:tries => 3 }) do |ftp_client|
           raise "testing retryable gem"
         end
       end
     end
 
     should "close the FTP connection when there is an exception" do
-      Net::FTP.expects(:new).once.returns(@ftp)
-      @ftp.expects(:close).times(1)
+      Net::FTP.expects(:new).times(2).returns(@ftp)
+      @ftp.expects(:close).times(2)
       assert_raise(RuntimeError) do
         @object.ftp(@host) { |ftp_client| raise "testing close"}
       end

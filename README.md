@@ -39,8 +39,10 @@ forced timeouts. FTP Secure (FTPS) is also supported.
 * **password**: The password, if required by the host (default: "").
 * **port**: The port for the host (default: 21).
 * **ftps**: Set to true if connecting to a FTP Secure server (default: false).
-* **retries**: The number of times to re-try the given FTP commands upon any
-  exception, before raising the exception (Default: 1).
+* **tries**: The number of times to try the given FTP commands upon any
+  exception, before raising the exception (Default: 2, meaning it will *retry
+  once* upon any exception).
+* **sleep**: The number of seconds to sleep in between tries (default: 1).
 * **timeout**: The number of seconds to wait before timing out (default: 5).
   Use 0 to disable the timeout.
 * **passive**: Set to false to prevent a connection in passive mode (default:
@@ -48,10 +50,9 @@ forced timeouts. FTP Secure (FTPS) is also supported.
 
 ## Caveats
 
-  Based on the way the [retryable]("https://github.com/nfedyashev/retryable")
-  gem works, any FTP commands will be retried at least once upon any
-  exception. Setting the :retries option to 0 will raise a runtime error.  I'm
-  fine with this for now as I prefer this behavior.
+  Setting the :tries option to 0 will raise a runtime error, otherwise the
+  codeblock would never execute.
+
 
 ## Testing
 
