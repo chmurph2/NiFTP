@@ -43,6 +43,12 @@ forced timeouts. FTP Secure (FTPS) is also supported.
   exception, before raising the exception (Default: 2, meaning it will *retry
   once* upon any exception).
 * **sleep**: The number of seconds to sleep in between tries (default: 1).
+* **on**: An array of errors to limit when the code block is retried
+  (default: StandardError).  See the
+  [retryable](https://github.com/nfedyashev/retryable) gem for usage details
+* **matching**: An exception message regex to limit when the code block is
+  retried (default: /.*/).  See the
+  [retryable](https://github.com/nfedyashev/retryable) gem for usage details
 * **timeout**: The number of seconds to wait before timing out (default: 5).
   Use 0 to disable the timeout.
 * **passive**: Set to false to prevent a connection in passive mode (default:
