@@ -89,7 +89,7 @@ class NiFTPTest < Test::Unit::TestCase
 
     should "use a five second (default) timeout when connecting" do
       stub_ftp
-      Timeout.expects(:timeout).with(5)
+      Timeout.expects(:timeout).with(30)
       @object.ftp(@host)
     end
 
