@@ -49,8 +49,8 @@ forced timeouts. FTP Secure (FTPS) is also supported.
 * **matching**: An exception message regex to limit when the code block is
   retried (default: /.*/).  See the
   [retryable](https://github.com/nfedyashev/retryable) gem for usage details
-* **timeout**: The number of seconds to wait before timing out (default: 5).
-  Use 0 to disable the timeout.
+* **timeout**: The number of seconds to wait before timing out authentication
+  (default: 5). Use 0 to disable the authentication timeout.
 * **passive**: Set to false to prevent a connection in passive mode (default:
   true).
 
