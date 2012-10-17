@@ -18,6 +18,7 @@ forced timeouts. FTP Secure (FTPS) is also supported.
     # A more concrete example:
 
     # Mixin the +NiFTP+ module, which provides the +ftp+ method.
+    require 'niftp'
     class SomeObject
       include NiFTP
 
