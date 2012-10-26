@@ -18,10 +18,7 @@ module NiFTP
     retryable(retryable_options(options)) do
       ftp = instantiate_ftp_per_options(options)
       begin
-        Timeout::timeout(options[:timeout]) do
-          ftp.connect host, options[:port]
-          ftp.login options[:username], options[:password]
-        end
+        login_with_timeout(ftp, host, options)
         yield ftp if ftp.present? && block_given?
       ensure
         ftp.try(:close)
@@ -30,6 +27,13 @@ module NiFTP
   end
 
   private
+
+  def login_with_timeout(ftp, host, options)
+    Timeout::timeout(options[:timeout]) do
+      ftp.connect host, options[:port]
+      ftp.login options[:username], options[:password]
+    end
+  end
 
   def instantiate_ftp_per_options(options)
     (options[:ftps] ? Net::FTPFXPTLS.new : Net::FTP.new).tap do |ftp|
