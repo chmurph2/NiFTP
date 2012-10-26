@@ -18,8 +18,7 @@ module NiFTP
       :passive => true, :timeout => 30.seconds, :tries => 2, :sleep => 1.second,
       :on => StandardError,  :matching => /.*/)
     raise "The :tries option must be > 0." if options[:tries] < 1
-    retryable(:tries => options[:tries], :sleep => options[:sleep],
-    :on => options[:on], :matching => options[:matching]) do
+    retryable(retryable_options(options)) do
       ftp = options[:ftps] ? Net::FTPFXPTLS.new : Net::FTP.new
       ftp.passive = options[:passive]
       begin
@@ -32,6 +31,17 @@ module NiFTP
         ftp.try(:close)
       end
     end
+  end
+
+  private
+
+  def retryable_options(options)
+    {
+      :tries    => options[:tries],
+      :sleep    => options[:sleep],
+      :on       => options[:on],
+      :matching => options[:matching]
+    }
   end
 end
 
