@@ -16,8 +16,7 @@ module NiFTP
     options.reverse_merge!(default_options(options))
     raise "The :tries option must be > 0." if options[:tries] < 1
     retryable(retryable_options(options)) do
-      ftp = options[:ftps] ? Net::FTPFXPTLS.new : Net::FTP.new
-      ftp.passive = options[:passive]
+      ftp = instantiate_ftp_per_options(options)
       begin
         Timeout::timeout(options[:timeout]) do
           ftp.connect host, options[:port]
@@ -31,6 +30,12 @@ module NiFTP
   end
 
   private
+
+  def instantiate_ftp_per_options(options)
+    (options[:ftps] ? Net::FTPFXPTLS.new : Net::FTP.new).tap do |ftp|
+      ftp.passive = options[:passive]
+    end
+  end
 
   def default_options(options)
     {
