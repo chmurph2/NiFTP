@@ -13,10 +13,7 @@ module NiFTP
   #
   # See the README for available options and examples.
   def ftp(host, options = {}, &block)
-    options.reverse_merge!(
-      :username => "", :password => "", :port => 21, :ftps => false,
-      :passive => true, :timeout => 30.seconds, :tries => 2, :sleep => 1.second,
-      :on => StandardError,  :matching => /.*/)
+    options.reverse_merge!(default_options(options))
     raise "The :tries option must be > 0." if options[:tries] < 1
     retryable(retryable_options(options)) do
       ftp = options[:ftps] ? Net::FTPFXPTLS.new : Net::FTP.new
@@ -34,6 +31,21 @@ module NiFTP
   end
 
   private
+
+  def default_options(options)
+    {
+      :username => "",
+      :password => "",
+      :port     => 21,
+      :ftps     => false,
+      :passive  => true,
+      :timeout  => 30.seconds,
+      :tries    => 2,
+      :sleep    => 1.second,
+      :on       => StandardError,
+      :matching => /.*/
+    }
+  end
 
   def retryable_options(options)
     {
