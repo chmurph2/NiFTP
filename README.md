@@ -3,6 +3,8 @@ use. It abstracts away the FTP plumbing, such as establishing and closing
 connections. Options include retrying your commands on flakey FTP servers, and
 forced timeouts. FTP Secure (FTPS) is also supported.
 
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/chmurph2/NiFTP)
+
 ## Usage
     # Without NiFTP:
     begin
