@@ -53,7 +53,7 @@ forced timeouts. FTP Secure (FTPS) is also supported.
   retried (default: /.*/).  See the
   [retryable](https://github.com/nfedyashev/retryable) gem for usage details
 * **timeout**: The number of seconds to wait before timing out authentication
-  (default: 5). Use 0 to disable the authentication timeout.
+  (default: 30). Use 0 to disable the authentication timeout.
 * **passive**: Set to false to prevent a connection in passive mode (default:
   true).
 
