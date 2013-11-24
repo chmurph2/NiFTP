@@ -86,7 +86,7 @@ module NiFTP
         end
       end
 
-      it "must use a five second (default) timeout when connecting" do
+      it "must use a 30 second (default) timeout when connecting" do
         stub_ftp
         Timeout.expects(:timeout).with(30)
         object.ftp(host)
