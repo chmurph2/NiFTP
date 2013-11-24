@@ -1,7 +1,8 @@
-require 'rubygems'
-require 'test/unit'
-require 'shoulda'
-require 'mocha'
+require "minitest/autorun"
+require "minitest/pride"
+require 'mocha/setup'
 
-class Test::Unit::TestCase
+module NiFTP
+  class TestCase < Minitest::Spec
+  end
 end
