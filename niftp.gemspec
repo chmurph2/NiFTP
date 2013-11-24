@@ -30,7 +30,6 @@ Gem::Specification.new do |s|
   # Dependencies
   s.add_dependency "ftpfxp",                     ">= 0.0.4"
   s.add_dependency "retryable",                  ">= 1.3"
-  s.add_dependency "activesupport",              ">= 2.0"
   s.add_dependency "i18n",                       ">= 0.5"
   s.add_development_dependency "minitest",       "~> 4.7"
   s.add_development_dependency "guard",          "~> 1.8.3"

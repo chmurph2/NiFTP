@@ -2,7 +2,6 @@ require "net/ftp"
 require "ftpfxp"
 require "retryable"
 require "timeout"
-require "active_support/core_ext"
 
 # Abstracts away File Transfer Protocol plumbing, such as establishing and
 # closing connections.
@@ -13,15 +12,15 @@ module NiFTP
   #
   # See the README for available options and examples.
   def ftp(host, options = {}, &block)
-    options.reverse_merge!(default_options(options))
+    options = default_options.merge(options)
     raise "The :tries option must be > 0." if options[:tries] < 1
     retryable(retryable_options(options)) do
       ftp = instantiate_ftp_per_options(options)
       begin
         login_with_timeout(ftp, host, options)
-        yield ftp if ftp.present? && block_given?
+        yield ftp if ftp && block_given?
       ensure
-        ftp.try(:close)
+        ftp.close if ftp
       end
     end
   end
@@ -41,16 +40,16 @@ module NiFTP
     end
   end
 
-  def default_options(options)
+  def default_options
     {
       :username => "",
       :password => "",
       :port     => 21,
       :ftps     => false,
       :passive  => true,
-      :timeout  => 30.seconds,
+      :timeout  => 30, # seconds
       :tries    => 2,
-      :sleep    => 1.second,
+      :sleep    => 1,  # second
       :on       => StandardError,
       :matching => /.*/
     }
