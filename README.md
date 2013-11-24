@@ -4,6 +4,7 @@ connections. Options include retrying your commands on flakey FTP servers, and
 forced timeouts. FTP Secure (FTPS) is also supported.
 
 [![Code Climate](https://codeclimate.com/github/chmurph2/NiFTP.png)](https://codeclimate.com/github/chmurph2/NiFTP)
+[![Build Status](https://travis-ci.org/chmurph2/NiFTP.png)](https://travis-ci.org/chmurph2/NiFTP)
 
 ## Usage
     # Without NiFTP:
