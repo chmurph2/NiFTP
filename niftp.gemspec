@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{NiFTP makes Ruby's decidedly un-nifty Net::FTP library
     easier to use.}
   s.description = s.summary
+  s.license     = "MIT"
 
   s.rubyforge_project = "niftp"
 
