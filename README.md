@@ -66,5 +66,4 @@ forced timeouts. FTP Secure (FTPS) is also supported.
 
 ## Testing
 
-Tests are written with Shoulda and Mocha. This gem is tested in Ruby 1.8.7
-(REE) and 1.9.2.
+Tests are written using minitest-spec and Mocha.
