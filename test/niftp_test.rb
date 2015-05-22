@@ -64,7 +64,7 @@ module NiFTP
 
       it "must use the retryable defauls when they're not explicitly set" do
         Net::FTP.stubs(:new => ftp)
-        object.expects(:retryable).with(:tries => 2, :sleep => 1,
+        Retryable.expects(:retryable).with(:tries => 2, :sleep => 1,
           :on => StandardError, :matching => /.*/)
         object.ftp(host) { }
       end

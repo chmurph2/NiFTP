@@ -14,7 +14,7 @@ module NiFTP
   def ftp(host, options = {}, &block)
     options = default_options.merge(options)
     raise "The :tries option must be > 0." if options[:tries] < 1
-    retryable(retryable_options(options)) do
+    Retryable.retryable(retryable_options(options)) do
       ftp = instantiate_ftp_per_options(options)
       begin
         login_with_timeout(ftp, host, options)
