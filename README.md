@@ -20,15 +20,24 @@ forced timeouts. FTP Secure (FTPS) is also supported.
 
     # A more concrete example:
 
-    # Mixin the +NiFTP+ module, which provides the +ftp+ method.
+    # Mixin the +NiFTP+ module, which provides the +ftps+ method.
     require 'niftp'
     class SomeObject
       include NiFTP
 
+      def ftps_options
+        {
+          username: "",
+          password: "",
+          ftps: true,
+          ssl_context_params: {
+            verify_mode: OpenSSL::SSL::VERIFY_NONE
+          }
+        }
+      end
+
       def ftp_stuff
-        # get a file from an FTP Secure (FTPS) server
-        ftp("ftp.secure.com", { username: "some_user", password: "FTP_FTL",
-                                ftps: true }) do |client|
+        ftp("ftp.appareldownload.com", ftps_options) do |client|
           files = client.list('n*')
           # ...
           file = client.getbinaryfile('nif.rb-0.91.gz', 'nif.gz', 1024)
@@ -42,7 +51,6 @@ forced timeouts. FTP Secure (FTPS) is also supported.
 * **username**: The user name, if required by the host (default: "").
 * **password**: The password, if required by the host (default: "").
 * **port**: The port for the host (default: 21).
-* **ftps**: Set to true if connecting to a FTP Secure server (default: false).
 * **tries**: The number of times to try the given FTP commands upon any
   exception, before raising the exception (Default: 2, meaning it will *retry
   once* upon any exception).
@@ -57,6 +65,9 @@ forced timeouts. FTP Secure (FTPS) is also supported.
   (default: 30). Use 0 to disable the authentication timeout.
 * **passive**: Set to false to prevent a connection in passive mode (default:
   true).
+* **ftps**: Set to true if connecting to a FTP Secure server (default: false).
+* **ftps_mode**: Set to one of the following: DoubleBagFTPS::EXPLICIT or DoubleBagFTPS::IMPLICIT (default: DoubleBagFTPS::IMPLICIT).
+* **ssl_context_params**: See the [DoubleBagFTPS](https://github.com/bnix/double-bag-ftps) for options. (default: { }).
 
 ## Caveats
 
