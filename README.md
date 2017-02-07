@@ -1,4 +1,6 @@
-NiFTP, a Ruby gem, makes Ruby's decidedly un-nifty Net::FTP library easier to
+## NiFTP
+Only supports Ruby 2.0.0+
+A Ruby gem, makes Ruby's decidedly un-nifty Net::FTP library easier to
 use. It abstracts away the FTP plumbing, such as establishing and closing
 connections. Options include retrying your commands on flakey FTP servers, and
 forced timeouts. FTP Secure (FTPS) is also supported.
