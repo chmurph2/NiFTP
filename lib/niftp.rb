@@ -1,5 +1,5 @@
 require "net/ftp"
-require "ftpfxp"
+require "double_bag_ftps"
 require "retryable"
 require "timeout"
 
@@ -35,8 +35,20 @@ module NiFTP
   end
 
   def instantiate_ftp_per_options(options)
-    (options[:ftps] ? Net::FTPFXPTLS.new : Net::FTP.new).tap do |ftp|
-      ftp.passive = options[:passive]
+    (options[:ftps] ? DoubleBagFTPS.new : Net::FTP.new).tap do |obj|
+      if options[:ftps]
+        if options[:ftps_mode]
+          obj.ftps_mode = options[:ftps_mode]
+        end
+
+        if options[:ssl_context_params]
+          obj.ssl_context = DoubleBagFTPS.create_ssl_context(
+            options[:ssl_context_params]
+          )
+        end
+      end
+
+      obj.passive = options[:passive]
     end
   end
 

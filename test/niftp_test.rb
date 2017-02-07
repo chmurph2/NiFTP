@@ -98,8 +98,8 @@ module NiFTP
         object.ftp(host, { :timeout => 1 })
       end
 
-      it "must use the FTPFXP (FTPS) library when instructed" do
-        Net::FTPFXPTLS.expects(:new).once.returns(ftp)
+      it "must use the DoubleBagFTPS library when instructed" do
+        DoubleBagFTPS.expects(:new).once.returns(ftp)
         object.ftp(host, { :ftps => true })
       end
     end

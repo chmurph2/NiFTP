@@ -28,12 +28,10 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ["README.md"] + Dir.glob("doc/*")
 
   # Dependencies
-  s.add_dependency "ftpfxp",                     ">= 0.0.4"
+  s.add_dependency "double-bag-ftps",            ">= 0.1.3"
   s.add_dependency "retryable",                  ">= 2.0"
   s.add_dependency "i18n",                       ">= 0.5"
   s.add_development_dependency "minitest",       "~> 4.7"
-  s.add_development_dependency "guard",          "~> 1.8.3"
-  s.add_development_dependency "guard-minitest", "~> 1.0.1"
   s.add_development_dependency "mocha",          "~> 0.14"
   s.add_development_dependency "rake"
 end
