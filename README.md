@@ -20,7 +20,7 @@ forced timeouts. FTP Secure (FTPS) is also supported.
 
     # A more concrete example:
 
-    # Mixin the +NiFTP+ module, which provides the +ftps+ method.
+    # Mixin the +NiFTP+ module, which provides the +ftp+ method.
     require 'niftp'
     class SomeObject
       include NiFTP
@@ -66,7 +66,7 @@ forced timeouts. FTP Secure (FTPS) is also supported.
 * **passive**: Set to false to prevent a connection in passive mode (default:
   true).
 * **ftps**: Set to true if connecting to a FTP Secure server (default: false).
-* **ftps_mode**: Set to one of the following: DoubleBagFTPS::EXPLICIT or DoubleBagFTPS::IMPLICIT (default: DoubleBagFTPS::IMPLICIT).
+* **ftps_mode**: Set to one of the following: `DoubleBagFTPS::EXPLICIT` or `DoubleBagFTPS::IMPLICIT` (default: `DoubleBagFTPS::IMPLICIT`).
 * **ssl_context_params**: See the [DoubleBagFTPS](https://github.com/bnix/double-bag-ftps) for options. (default: { }).
 
 ## Caveats
